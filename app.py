@@ -10,8 +10,15 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
+	getdata =  mongo.db.users.find_one()
+	if getdata > 0:
+		return render_template("index.html" , getdata = getdata)
+	else:
+		msg = "nothing"
+		return render_template("index.html" , getdata = getdata)
 
-	return render_template('index.html')
+
+	
 @app.route('/', methods = ['POST', 'GET'])
 def subscription():
 	try:
@@ -43,9 +50,9 @@ def login():
 		username = request.form['firstname']
 		password = request.form['lastname']
 		if username == "amber" and password == "gautam":
-			return "congo"
+			return render_template("dashboard.html")
 		else: 
-			return "sorry"
+			return render_template("login.html")
 	
 	return render_template("login.html")
 

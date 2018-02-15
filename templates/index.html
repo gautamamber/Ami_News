@@ -129,7 +129,7 @@ input[type=submit]:hover {
 	<div class="row">
 		<div class="col-xs-12">
 			<center>
-				<i style="font-size: 20px; color: red;">Get regular updates of upcoming online courses</i>
+				<i style="font-size: 20px; color: red;">Get regular updates of upcoming online courses</i>&nbsp;<a href="/login" class="btn btn-primary">Login</a>
 			</center>
 		</div>
 	</div>
@@ -154,7 +154,15 @@ input[type=submit]:hover {
 <div class="container-fluid subscription">
 	<div class="row">
 		<div class="col-sm-7 col-xs-12">
-			
+			<center>
+
+				{% for item in getdata %}
+				<h5">{{item.title}}</h5><br>
+				<h5>{{item.description}}</h5><br>
+				<h5>{{item.link}}</h5>
+				{%endfor%}
+
+			</center>
 		</div>
 		<div class="col-sm-5 col-xs-12">
 		<center>
