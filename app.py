@@ -10,9 +10,8 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-	if 'username' in session:
-		return "you are logged in as" + session['username']
-	return render_template('login.html')
+
+	return render_template('index.html')
 @app.route('/', methods = ['POST', 'GET'])
 def subscription():
 	try:
@@ -24,11 +23,33 @@ def subscription():
 	except:
 		return "Something is wrong"
 
-@app.route('/dashboard')
+
+@app.route('/dashboard', methods = ['POST' ,'GET'])
 def dashboard():
+	try:
+		if request.method == 'POST':
+			data = mongo.db.data
+			data.insert({'Title' : request.form['title'], 'Description' : request.form['description'], 'Link' : request.form['link']})
+		return render_template("dashboard.html")
+	except:
+		return "something went wrong"
+
 	
         
 	return render_template('dashboard.html')
+@app.route('/login', methods = ['POST' , 'GET'])
+def login():
+	if request.method == "POST":
+		username = request.form['firstname']
+		password = request.form['lastname']
+		if username == "amber" and password == "gautam":
+			return "congo"
+		else: 
+			return "sorry"
+	
+	return render_template("login.html")
+
+
 
 
 
